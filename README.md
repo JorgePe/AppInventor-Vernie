@@ -82,3 +82,17 @@ On Screen initialization we start BLE scanning, this is required before we can s
 Then we create a static list with our Vernies nicknames and BLE Addresses, set the text and color of some buttons
 and labels and create the Joystick, moving the smaller circled sprite to the center of the larger circled canvas
 at (X0,Y0). Finally we initialize both clocks timers, disabling them until they are required.
+
+
+Before we can connect to Vernie we need to ##Choose## which Vernie from a list availabe in ListPicker1. Each Vernie
+in this list is also a list of two elements: a nickname defined by us (like 'My1stVernie') and a BLE address.
+
+![ListPicker](/listpicker.png)
+
+
+Connection (and disconnection) is done through BtConnection. As soon as a connection is made we start sending
+motor commands to motor A+B (tracks) and receiving notifications from the Color/Distance Sensor (in fact we receive all
+kind of notifications from Vernie's Move Hub but only pay attention to data related to the Color/Distance Sensor).
+
+
+![BLEConnection](/BLEconnection.png)
