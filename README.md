@@ -97,6 +97,9 @@ address.
 ![ListPicker](/listpicker.png)
 
 
+We update the ListPick1 Text property with the nickname of the device we chose (that's first element of the pair;
+the second element, the BLE address, will be used on the connection).
+
 Connection (and disconnection) is done through BtConnection. As soon as a connection is made we start sending
 motor commands to motor A+B (tracks) and receiving notifications from the Color/Distance Sensor (in fact we receive all
 kind of notifications from Vernie's Move Hub but only pay attention to data related to the Color/Distance Sensor).
