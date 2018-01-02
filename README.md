@@ -53,14 +53,16 @@ If you import the .aia file you will see on the Designer View that the App uses 
 - BtnShoot
 
 
-For convenience these UI components are arranged inside Horizontal Arrangements and there also a few labels that I use as spacers, not listed above.
+For convenience these UI components are arranged inside Horizontal Arrangements and there also a few labels that I
+use as spacers, not listed above.
 
 
 There are also some non-visual objects:
 
 - One extension, BluetoothLE1. This contains all Bluetooth Low Energy components required to talk with Vernie.
 - Two sensors (ClockTracks and ClockShoot). The first is used to regularly send motor commands to Vernie and the second to implement a delay between back and forth movements of the head when triggering the "cannon".
-- Three image files (two for the joystick Canvas and Sprite and the other one, a photo of Vernie, used as Image1 and also used as the Application Icon)
+- Three image files (two for the joystick Canvas and Sprite and the other one, a photo of Vernie, used as Image1 and
+also used as the Application Icon)
 
 
 When the Application starts, it initializes the Screen and defines a few global variables:
@@ -71,9 +73,11 @@ When the Application starts, it initializes the Screen and defines a few global 
 MAXRADIUS, X0 and Y0 are constants used with the joystick. If you change joystick properties you need to update
 these values.
 
-SpeedA and SpeedB are global variables contain the speed of motors A and B. Every TRACKSPERIOD milliseconds a BLE command is sent to update motors speed.
+SpeedA and SpeedB are global variables contain the speed of motors A and B. Every TRACKSPERIOD milliseconds a BLE
+command is sent to update motors speed.
 
-ServiceUUID and CharUUID are the Bluetooth Low Energy UUIDs implemented by LEGO for the BOOST Move Hub (Vernie's core) and are required by the BluetoothLE extension components.
+ServiceUUID and CharUUID are the Bluetooth Low Energy UUIDs implemented by LEGO for the BOOST Move Hub (Vernie's core)
+and are required by the BluetoothLE extension components.
 
 SHOOTDELAY, SHOOTROTATION and SHOOTSPEED are constants used for triggering Vernie's "cannon" with its head.
 
@@ -84,8 +88,9 @@ and labels and create the Joystick, moving the smaller circled sprite to the cen
 at (X0,Y0). Finally we initialize both clocks timers, disabling them until they are required.
 
 
-Before we can connect to Vernie we need to ##Choose## which Vernie from a list availabe in ListPicker1. Each Vernie
-in this list is also a list of two elements: a nickname defined by us (like 'My1stVernie') and a BLE address.
+Before we can connect to Vernie we need to **Choose** which Vernie from a list availabe in **ListPicker1**.
+Each Vernie in this list is also a list of two elements: a nickname defined by us (like 'My1stVernie') and a BLE
+address.
 
 ![ListPicker](/listpicker.png)
 
