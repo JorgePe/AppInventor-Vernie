@@ -92,6 +92,8 @@ Before we can connect to Vernie we need to **Choose** which Vernie from a list a
 Each Vernie in this list is also a list of two elements: a nickname defined by us (like 'My1stVernie') and a BLE
 address.
 
+![List of Vernies](listofvernies.png)
+
 ![ListPicker](/listpicker.png)
 
 
