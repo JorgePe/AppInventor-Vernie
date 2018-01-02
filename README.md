@@ -7,4 +7,4 @@ The color sensor status is also continuously shown.
 Will soon document the process of creating such an app.
 
 
-(A screenshot)[https://github.com/JorgePe/AppInventor-Vernie/blob/master/Screenshot_2018-01-02-12-54-57.png]
+![A screenshot](/Screenshot_2018-01-02-12-54-57.png):
