@@ -65,4 +65,20 @@ There are also some non-visual objects:
 
 When the Application starts, it initializes the Screen and defines a few global variables:
 
+![Initialization](/initialization.png)
 
+
+MAXRADIUS, X0 and Y0 are constants used with the joystick. If you change joystick properties you need to update
+these values.
+
+SpeedA and SpeedB are global variables contain the speed of motors A and B. Every TRACKSPERIOD milliseconds a BLE command is sent to update motors speed.
+
+ServiceUUID and CharUUID are the Bluetooth Low Energy UUIDs implemented by LEGO for the BOOST Move Hub (Vernie's core) and are required by the BluetoothLE extension components.
+
+SHOOTDELAY, SHOOTROTATION and SHOOTSPEED are constants used for triggering Vernie's "cannon" with its head.
+
+
+On Screen initialization we start BLE scanning, this is required before we can stablish a BLE connection to Vernie.
+Then we create a static list with our Vernies nicknames and BLE Addresses, set the text and color of some buttons
+and labels and create the Joystick, moving the smaller circled sprite to the center of the larger circled canvas
+at (X0,Y0). Finally we initialize both clocks timers, disabling them until they are required.
