@@ -23,3 +23,12 @@ The joystick doesn't return to center when not in use. This is intended, so you 
 the [Reset] button or move yourself the joystick back to center (not easy).
 
 The [Shoot] button makes the head turn enough to trigger the "cannon"... most of the times.
+
+
+# Requirements
+
+You need MIT App Inventor 2. For the moment, it only builds Android apps but it is expect support iOS.
+For Bluetooth Low Energy you need the BluetoothLE extension. Current official version is [here](http://iot.appinventor.mit.edu/assets/resources/edu.mit.appinventor.ble.aix) but I used the [2.1 Release Candidate 4](https://www.google.com/url?q=https%3A%2F%2Fwww.dropbox.com%2Fs%2Fsic9kvft8atynly%2FBLE-v2.1-rc4.aix%3Fdl%3D0&sa=D&sntz=1&usg=AFQjCNHFymz0G27-XELIu0mMk3016QMn_g) without issues.
+
+For the moment, you need to know the BLE address of your LEGO BOOST Move Hub. You can use a free Android app from Nordic, nRF Connect, to get this address.
+It's easy to get a dynamic list of the BLE devices found nerarby but my office has so many that my phone screen was cluttered, will later try a better version that filters BLE addresses by manufacturer and shows only LEGO devices.
