@@ -34,3 +34,35 @@ For Bluetooth Low Energy you need the BluetoothLE extension. Current official ve
 
 For the moment, you need to know the BLE address of your LEGO BOOST Move Hub. You can use a free Android app from Nordic, nRF Connect, to get this address.
 It's easy to get a dynamic list of the BLE devices found nerarby but my office has so many that my phone screen was cluttered, will later try a better version that filters BLE addresses by manufacturer and shows only LEGO devices.
+
+
+# Explaining the App
+
+If you import the .aia file you will see on the Designer View that the App uses the follow visual components, all on the same default Screen:
+
+
+- BtnConnection
+- ListPicker1
+- Image1
+- LblRadius
+- LblXY
+- LabelJoystick
+- BtnRst
+- CanvasJoystick
+- ImgSpriteJoystick
+- BtnShoot
+
+
+For convenience these UI components are arranged inside Horizontal Arrangements and there also a few labels that I use as spacers, not listed above.
+
+
+There are also some non-visual objects:
+
+- One extension, BluetoothLE1. This contains all Bluetooth Low Energy components required to talk with Vernie.
+- Two sensors (ClockTracks and ClockShoot). The first is used to regularly send motor commands to Vernie and the second to implement a delay between back and forth movements of the head when triggering the "cannon".
+- Three image files (two for the joystick Canvas and Sprite and the other one, a photo of Vernie, used as Image1 and also used as the Application Icon)
+
+
+When the Application starts, it initializes the Screen and defines a few global variables:
+
+
