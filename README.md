@@ -17,6 +17,7 @@ The joystick controls both tracks at the same time. Speed is proportional to amp
 - Back: moves backwards
 - Right: turns right
 - Left: turns left
+
 And moving somewhere between these directions gives a mix forward/backward and rotation.
 
 The joystick doesn't return to center when not in use. This is intended, so you can fix a direction and speed until you press 
