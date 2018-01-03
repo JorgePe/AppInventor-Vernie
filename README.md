@@ -69,6 +69,12 @@ There are also a fee non-visual components:
 - Three *Image Files* (two for the joystick *Canvas* and *Sprite* and the other, a photo of Vernie, used as *Image1* and
 also used as the Application Icon in the *Screen* properties)
 
+Now for the "code":
+
+![Code](/all-blocks.jpg)
+
+
+It is somewhat long so I'll try to explain each functional part:
 
 When the App starts, it initializes the *Screen* and defines a few global variables:
 
