@@ -114,7 +114,7 @@ kind of notifications from Vernie's Move Hub but only pay attention to data rela
 ![BLEConnection](/BLEconnection.png)
 
 
-After connection, you can control Vernie movements with the Joystick. Previously I was using two sliders,
+After connection, we can control Vernie movements with the Joystick. Previously I was using two sliders,
 one for each track. But at the end of December there was an upgrade to App Inventor and sliders don't work on my
 Android 5.0 phone so while I'm waiting for a fix I decided to use a Joystick.
 
@@ -128,7 +128,8 @@ with a smaller circle image as the "stick".
 
 Some trigonometry concepts are used that I will not detail here but the basic idea is that each time the sprite is
 dragged we need to find it's position and decide if it is valid or not by calculating its distance to the center
-with the 'radius' procedure - if OK we accept, if not we force the sprite to stay over the border of the joystick area.
+with the 'radius' procedure - if OK we accept, if not we force the sprite to stay on the border of the joystick area to
+prevent it to go outside.
 
 Then we 'rotate' our joystick 45º to calculate the speed values to apply to each motor. This is a common trick used with
 tank driving, you can read some ideas [here](https://electronics.stackexchange.com/questions/19669/algorithm-for-mixing-2-axis-analog-input-to-control-a-differential-motor-drive).
@@ -140,7 +141,7 @@ resulting speed values. If you don't want to see this values just disable the 'c
 ![Radius and Info procedures](/radius_and_info.png)
 
 
-A real joystick would return to center when released but I prefer to let it stay where it is. I'm not a good driver
+A real joystick would return to center when released but I prefer to let it stay where it was left. I'm not a good driver so
 this way I can make Vernie go straight in one direction while doing other things. There is **Reset** button that can also
 work as an emergency brake
 
@@ -185,3 +186,12 @@ is a color and we use **GetColorName** function to retrieve it.
 ![BytesReceived](/BytesReceived.png)
 
 
+# Future improvements
+
+For the moment I have two ideas:
+- improve the BytesReceived block to also detect Distance values, not just Color.
+- scan all BLE devices nearby, parse their address and display a list off only those which start with LEGO address ("00:16:53") to let the user choose any Vernie around, not just the already known.
+
+Thanks for reading all this, I hope you can make good use of all it.
+
+Leg Godt / Play Well !
