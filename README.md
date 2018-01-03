@@ -74,10 +74,16 @@ MAXRADIUS, X0 and Y0 are constants used with the joystick. If you change joystic
 these values.
 
 SpeedA and SpeedB are global variables contain the speed of motors A and B. Every TRACKSPERIOD milliseconds a BLE
-command is sent to update motors speed.
+command is sent to update motors speed. You will notice that TRACKSPERIOD = 100 results in Vernie moving slower
+than you would expect, you can increase this value up to 255 but higher values might result is worst response times
+when changing Vernie's speed or direction.
+
 
 ServiceUUID and CharUUID are the Bluetooth Low Energy UUIDs implemented by LEGO for the BOOST Move Hub (Vernie's core)
-and are required by the BluetoothLE extension components.
+and are required by the BluetoothLE extension components. This UUID's are defined on in the firmware so it's possible
+that future firmware upgrades brake this - you can always check these UUID with a BLE App like Nordic nRF Connect for
+Android.
+
 
 SHOOTDELAY, SHOOTROTATION and SHOOTSPEED are constants used for triggering Vernie's "cannon" with its head.
 
@@ -106,3 +112,76 @@ kind of notifications from Vernie's Move Hub but only pay attention to data rela
 
 
 ![BLEConnection](/BLEconnection.png)
+
+
+After connection, you can control Vernie movements with the Joystick. Previously I was using two sliders,
+one for each track. But at the end of December there was an upgrade to App Inventor and sliders don't work on my
+Android 5.0 phone so while I'm waiting for a fix I decided to use a Joystick.
+
+This is the bigger block part of this App "code" and also the most complex:
+
+![Joystick block](/joystick.png)
+
+
+The idea is not mine, you can see others like this one by [Alan Jackson](https://sites.google.com/site/alanjacksoncsportfolio/app-inventor-joystick). I use a Canvas component, with a circle image as a background, and a Image Sprite component,
+with a smaller circle image as the "stick".
+
+Some trigonometry concepts are used that I will not detail here but the basic idea is that each time the sprite is
+dragged we need to find it's position and decide if it is valid or not by calculating its distance to the center
+with the 'radius' procedure - if OK we accept, if not we force the sprite to stay over the border of the joystick area.
+
+Then we 'rotate' our joystick 45º to calculate the speed values to apply to each motor. This is a common trick used with
+tank driving, you can read some ideas [here](https://electronics.stackexchange.com/questions/19669/algorithm-for-mixing-2-axis-analog-input-to-control-a-differential-motor-drive).
+
+I use a 'Info' procedure to display the current coordinates of the Joystick, the calculated radius and angle and the
+resulting speed values. If you don't want to see this values just disable the 'call Info' block.
+
+
+![Radius and Info procedures](/radius_and_info.png)
+
+
+A real joystick would return to center when released but I prefer to let it stay where it is. I'm not a good driver
+this way I can make Vernie go straight in one direction while doing other things. There is **Reset** button that can also
+work as an emergency brake
+
+![Reset button](/BtnRst.png)
+
+Now that we have the Speed values for motor A and B we need to send them to Vernie. This is done every time the timer
+defined for ClockTracks triggers (the period is defined by TRACKSPERIOD).
+
+![ClockTracks timer](/ClockTracks.png)
+
+Since Vernie uses motors A and B for movement I'm using a single timed motor command (the firmware has commands for every
+single motor but also for the A+B pair). The BluetoothLE extension has a WriteBytesWithResponse that I use to send this
+command, as a list of unsigned bytes. The timed motor command accepts a duration (TRACKSPERIOD) and a speed value for each
+motor. If the speed value is between 0 and 100 the motor rotates in one direction, to rotate in the other direction we should
+send '256-speed' but App Inventor takes care of that for us if we give a negative value.
+
+
+Now for triggering the cannon we use a much simpler block of code:
+
+![Shoot and Release](/Shoot.png)
+
+When the **Shoot** button is touched, we turn Vernie's head until it touches the cannon's trigger. Then we wait just a bit
+and return the head to it's initial position. This is done by enabling a second clock timer after the first movement and
+waiting for the timer to trigger to make the second movement.
+
+Instead of timed motor commands we now use angle motor commands and we use predefined values SHOOTROTATION and SHOOTSPEED.You can see that to return the head we multiply SHOOTSPEED by -1 instead of giving a negative angle.
+
+
+Last part is the Color Sensor. It is in fact a Color and Distance Sensor but for now I'm just using it to identify colors. 
+
+When the BLE connection to Vernie is made we enable the Color Sensor and at the same time we *subscribe* for Vernie's *notifications*. That means that we don't need to keep asking Vernie to read a color, he will send it to us whenever it
+detects a change in the sensor (not necessarily a change in color).
+
+![Enable Color Sensor](/EnableSensorAndSubscribe.png)
+
+In fact, we are subscribing to *ALL* kind of notifications, not just for Color Sensor notifications. But we will just pay
+attention to the Color values by parsing the Bytes we receive: if the notification starts with 8 (that means is 8-byte long)
+and next 3 bytes are '0', '69', '1' then we receive a color (or distance) notification. If the next byte is not 255 then it
+is a color and we use **GetColorName** function to retrieve it.
+
+![GetColorName](/GetColorName.png)
+![BytesReceived](/BytesReceived.png)
+
+
